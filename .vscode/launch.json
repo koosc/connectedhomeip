@@ -5,6 +5,71 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "LLDB Debugger: All Clusters App (chip-all-clusters-app)",
+            "type": "lldb",
+            "request": "launch",
+            "expressions": "native",
+            "sourceMap": {
+                "${workspaceFolder}/examples/all-clusters-app/": "${workspaceFolder}/examples/all-clusters-app/",
+                "${workspaceFolder}/examples/all-clusters-app/linux/third_party/connectedhomeip/": "${workspaceFolder}/"
+            },
+            "relativePathBase": "${workspaceFolder}",
+            "breakpointMode": "path",
+            "sourceLanguages": ["cpp"],
+            "reverseDebugging": true,
+            "preRunCommands": ["platform shell rm /tmp/kvs.bin"],
+            "program": "${workspaceFolder}/out/linux-x64-all-clusters-no-ble-no-wifi/chip-all-clusters-app",
+            "args": ["--KVS=/tmp/kvs.bin", "--trace_decode=1"],
+            "cwd": "${workspaceFolder}/out/linux-x64-all-clusters-no-ble-no-wifi",
+            "env": {
+                "_PW_ACTUAL_ENVIRONMENT_ROOT": "${workspaceFolder}/.environment",
+                "_PW_ENVIRONMENT_CONFIG_FILE": "${workspaceFolder}/scripts/setup/environment.json",
+                "_PW_ROSETTA": "0",
+                "PW_ARM_CIPD_INSTALL_DIR": "${workspaceFolder}/.environment/cipd/packages/arm",
+                "PW_BRANDING_BANNER": "${workspaceFolder}/scripts/setup/banner.txt",
+                "PW_PACKAGE_ROOT": "${workspaceFolder}/.environment/packages",
+                "PW_PIGWEED_CIPD_INSTALL_DIR": "${workspaceFolder}/.environment/cipd/packages/pigweed",
+                "PW_PROJECT_ROOT": "${workspaceFolder}",
+                "PW_PYTHON_CIPD_INSTALL_DIR": "${workspaceFolder}/.environment/cipd/packages/python",
+                "PW_ROOT": "${workspaceFolder}/third_party/pigweed/repo",
+                "PW_ZAP_CIPD_INSTALL_DIR": "${workspaceFolder}/.environment/cipd/packages/zap",
+                "PATH": "${workspaceFolder}/third_party/pigweed/repo/out/host/host_tools:${workspaceFolder}/.environment/pigweed-venv/bin:${workspaceFolder}/.environment/cipd/packages/arm/bin:${workspaceFolder}/.environment/cipd/packages/arm:${workspaceFolder}/.environment/cipd/packages/zap:${workspaceFolder}/.environment/cipd/packages/pigweed/bin:${workspaceFolder}/.environment/cipd/packages/pigweed:${workspaceFolder}/.environment/cip:${containerEnv:PATH}"
+            },
+            "stdio": [null, null, null],
+            "terminal": "integrated",
+            "stopOnEntry": true
+        },
+        {
+            "name": "LLDB Debugger: Chip-Tool (chip-tool)",
+            "type": "lldb", // [vadimcn/codelldb](https://github.com/vadimcn/codelldb)
+            "request": "launch",
+            "expressions": "native",
+            "sourceMap": {
+                "${workspaceFolder}/examples/chip-tool/": "${workspaceFolder}/examples/chip-tool/",
+                "${workspaceFolder}/examples/chip-tool/third_party/connectedhomeip/": "${workspaceFolder}/"
+            },
+            "relativePathBase": "${workspaceFolder}",
+            "breakpointMode": "path",
+            "sourceLanguages": ["cpp"],
+            "reverseDebugging": true,
+            "program": "${workspaceFolder}/out/linux-x64-chip-tool/chip-tool",
+            "args": [
+                "pairing",
+                "code",
+                "1",
+                "34970112332",
+                "--trace_decode",
+                "1",
+                "--country-code",
+                "US"
+            ],
+            "cwd": "${workspaceFolder}/out/linux-x64-chip-tool",
+            "env": {},
+            "stdio": [null, null, null],
+            "terminal": "console",
+            "stopOnEntry": false
+        },
+        {
             "name": "Attach to running process",
             "type": "lldb",
             "request": "attach",
