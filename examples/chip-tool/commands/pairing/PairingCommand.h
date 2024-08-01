@@ -203,6 +203,10 @@ public:
                         "DSTOffset list to use when setting Time Synchronization cluster's DSTOffset attribute",
                         Argument::kOptional);
 
+            AddArgument("require-tc-acknowledgements", 0, 1, &mRequireTCAcknowledgements,
+                        "Terms and Conditions acknowledgements is known to be required or not, (when required, the commissioner "
+                        "will wait until they are provided)");
+
             AddArgument("tc-acknowledgements", 0, UINT16_MAX, &mTCAcknowledgements,
                         "Terms and Conditions acknowledgements to use to set the General Commissioning cluster's TC "
                         "Acknowledgements bit-field");
@@ -267,6 +271,7 @@ private:
     chip::Optional<uint64_t> mICDMonitoredSubject;
     chip::Optional<chip::app::Clusters::IcdManagement::ClientTypeEnum> mICDClientType;
     chip::Optional<uint32_t> mICDStayActiveDurationMsec;
+    chip::Optional<bool> mRequireTCAcknowledgements;
     chip::Optional<uint16_t> mTCAcknowledgements;
     chip::Optional<uint16_t> mTCAcknowledgementVersion;
     chip::app::DataModel::List<chip::app::Clusters::TimeSynchronization::Structs::TimeZoneStruct::Type> mTimeZoneList;

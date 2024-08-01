@@ -129,6 +129,11 @@ CommissioningParameters PairingCommand::GetCommissioningParameters()
         params.SetCountryCode(CharSpan::fromCharString(mCountryCode.Value()));
     }
 
+    if (mRequireTCAcknowledgements.HasValue())
+    {
+        params.SetRequireTermsAndConditionsAcknowledgement(mRequireTCAcknowledgements.Value());
+    }
+
     // mTCAcknowledgements and mTCAcknowledgementVersion are optional, but related. When one is missing, default the value to 0, to
     // increase the test tools ability to test the applications.
     if (mTCAcknowledgements.HasValue() || mTCAcknowledgementVersion.HasValue())

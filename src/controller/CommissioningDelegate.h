@@ -40,6 +40,8 @@ enum CommissioningStage : uint8_t
     kReadCommissioningInfo2,     ///< Query SupportsConcurrentConnection, ICD state, check for matching fabric
     kArmFailsafe,                ///< Send ArmFailSafe (0x30:0) command to the device
     kConfigRegulatory,           ///< Send SetRegulatoryConfig (0x30:2) command to the device
+    kGetTCAcknowledgments,       ///< Waiting for the higher layer to provide terms and conditions acknowledgements.
+    kConfigureTCAcknowledgments, ///< Send SetTCAcknowledgements (0x30:6) command to the device
     kConfigureUTCTime,           ///< SetUTCTime if the DUT has a time cluster
     kConfigureTimeZone,          ///< Configure a time zone if one is required and available
     kConfigureDSTOffset,         ///< Configure DST offset if one is required and available
@@ -173,6 +175,8 @@ public:
 
     // The country code to be used for the node, if set.
     Optional<CharSpan> GetCountryCode() const { return mCountryCode; }
+
+    Optional<bool> GetRequireTermsAndConditionsAcknowledgement() const { return mRequireTermsAndConditionsAcknowledgement; }
 
     Optional<TermsAndConditionsAcknowledgement> GetTermsAndConditionsAcknowledgement() const
     {
@@ -348,6 +352,12 @@ public:
     CommissioningParameters & SetCountryCode(CharSpan countryCode)
     {
         mCountryCode.SetValue(countryCode);
+        return *this;
+    }
+
+    CommissioningParameters & SetRequireTermsAndConditionsAcknowledgement(bool requireTermsAndConditionsAcknowledgement)
+    {
+        mRequireTermsAndConditionsAcknowledgement.SetValue(requireTermsAndConditionsAcknowledgement);
         return *this;
     }
 
@@ -629,6 +639,7 @@ private:
     Optional<ByteSpan> mAttestationNonce;
     Optional<WiFiCredentials> mWiFiCreds;
     Optional<CharSpan> mCountryCode;
+    Optional<bool> mRequireTermsAndConditionsAcknowledgement;
     Optional<TermsAndConditionsAcknowledgement> mTermsAndConditionsAcknowledgement;
     Optional<ByteSpan> mThreadOperationalDataset;
     Optional<NOCChainGenerationParameters> mNOCChainGenerationParameters;
